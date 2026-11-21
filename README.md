@@ -1,3 +1,7 @@
+<p align="left">
+  <img src="./assets/logo.svg" alt="jaxels-animate logo" width="64" height="64" />
+</p>
+
 # Jaxel's Animate
 
 Combines multiple UI, motion, and anti-slop skills plus 130+ design-engineering articles into one unified agent skill.

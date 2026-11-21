@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <rect width="128" height="128" rx="30" fill="#0D2B22"/>
+  <rect x="1.5" y="1.5" width="125" height="125" rx="28.5" stroke="rgba(246,242,234,0.16)" stroke-width="3"/>
+  <!-- Three spring-arc motion ribbons -->
+  <path d="M28 84C36 48 64 36 98 42" stroke="#F6F2EA" stroke-width="11" stroke-linecap="round"/>
+  <path d="M32 98C46 66 74 56 102 64" stroke="#E84A27" stroke-width="11" stroke-linecap="round"/>
+  <circle cx="96" cy="42" r="8" fill="#E84A27"/>
+</svg>
