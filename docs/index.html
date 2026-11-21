@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tactile UI (tactile-ui) — UI Design, Fluid Motion & Anti-Slop Agent Skill</title>
+    <meta
+      name="description"
+      content="Tactile UI (tactile-ui) is an open-source SKILL.md for Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI—combining anti-slop UI audits, OKLCH palettes, defensive CSS, Apple-grade spring physics, and React ViewTransition."
+    />
+    <link rel="canonical" href="https://jaxels1.github.io/tactile-ui/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tactile UI — UI Design & Fluid Motion Agent Skill" />
+    <meta
+      property="og:description"
+      content="Replace generic AI slop templates with crafted typography, OKLCH contrast, defensive CSS, and interruptible spring physics."
+    />
+    <meta property="og:url" content="https://jaxels1.github.io/tactile-ui/" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/jaxels1/tactile-ui/main/assets/demo.gif"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "tactile-ui",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Windows, Linux",
+        "url": "https://jaxels1.github.io/tactile-ui/",
+        "codeRepository": "https://github.com/jaxels1/tactile-ui",
+        "description": "Open-source UI/UX design, fluid spring motion, defensive CSS, and anti-slop SKILL.md for AI coding agents including Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What makes tactile-ui a good UI design skill for AI coding agents?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "tactile-ui gives coding agents concrete, verifiable rules covering anti-slop layout audits, OKLCH perceptual contrast, defensive CSS (minmax(0, 1fr), subgrid, overflow: clip), interruptible pointer-driven springs, and React ViewTransition choreography."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which AI coding agents and frameworks does tactile-ui support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "tactile-ui follows the open SKILL.md standard and works with Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI across React, Next.js, TypeScript, Tailwind CSS, and vanilla CSS projects."
+            }
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        --bone: #f6f2ea;
+        --forest: #0d2b22;
+        --obsidian: #050a08;
+        --accent: #e84a27;
+        --emerald: #10b981;
+        --border: rgba(13, 43, 34, 0.14);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bone);
+        color: var(--forest);
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
+      .wrap {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 56px 24px 88px;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding-bottom: 36px;
+        border-bottom: 1px solid var(--border);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        font-size: 18px;
+        letter-spacing: -0.02em;
+      }
+      .cta {
+        display: inline-block;
+        padding: 10px 18px;
+        border-radius: 999px;
+        background: var(--forest);
+        color: var(--bone);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(34px, 5vw, 54px);
+        line-height: 1.06;
+        letter-spacing: -0.03em;
+        margin: 40px 0 18px;
+      }
+      .lead {
+        font-size: 19px;
+        max-width: 68ch;
+        color: rgba(13, 43, 34, 0.84);
+        margin: 0 0 28px;
+      }
+      pre {
+        background: var(--obsidian);
+        color: var(--bone);
+        padding: 18px 20px;
+        border-radius: 14px;
+        overflow-x: auto;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .demo {
+        margin: 34px 0;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: var(--obsidian);
+      }
+      .demo img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin: 32px 0;
+      }
+      .card {
+        padding: 20px;
+        border-radius: 14px;
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.55);
+      }
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 17px;
+      }
+      .card p {
+        margin: 0;
+        font-size: 14.5px;
+        color: rgba(13, 43, 34, 0.8);
+      }
+      h2 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 28px;
+        letter-spacing: -0.02em;
+        margin: 48px 0 16px;
+      }
+      footer {
+        margin-top: 64px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+        color: rgba(13, 43, 34, 0.72);
+      }
+      footer a {
+        color: var(--forest);
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <header>
+        <div class="brand">
+          <img
+            src="https://raw.githubusercontent.com/jaxels1/tactile-ui/main/assets/logo.svg"
+            alt="tactile-ui logo"
+            width="36"
+            height="36"
+          />
+          <span>tactile-ui</span>
+        </div>
+        <a class="cta" href="https://github.com/jaxels1/tactile-ui">View on GitHub →</a>
+      </header>
+
+      <h1>UI design, fluid spring motion &amp; anti-slop craft for AI agents.</h1>
+      <p class="lead">
+        <strong>Tactile UI (<code>tactile-ui</code>)</strong> is an open-source
+        <code>SKILL.md</code> that equips Claude Code, OpenAI Codex, Cursor, Antigravity,
+        and Gemini CLI with concrete CSS craft, <code>OKLCH</code> color systems,
+        interruptible pointer-driven springs, and native React
+        <code>&lt;ViewTransition&gt;</code> choreography.
+      </p>
+
+      <pre><code>npx skills add jaxels1/tactile-ui</code></pre>
+
+      <div class="demo">
+        <img
+          src="https://raw.githubusercontent.com/jaxels1/tactile-ui/main/assets/demo.gif"
+          alt="Tactile UI skill walkthrough showing prompt-to-craft transformation, fluid springs, defensive CSS, and View Transitions"
+        />
+      </div>
+
+      <h2>Core Capabilities</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Anti-Slop Layout &amp; Copy</h3>
+          <p>Breaks generic 3-column template grids, removes AI chrome clichés, and enforces plain-English UI copy.</p>
+        </div>
+        <div class="card">
+          <h3>Defensive CSS &amp; OKLCH</h3>
+          <p>Applies <code>minmax(0, 1fr)</code>, <code>subgrid</code>, <code>overflow: clip</code>, nested radii, and perceptual <code>oklch()</code> contrast.</p>
+        </div>
+        <div class="card">
+          <h3>Interruptible Springs</h3>
+          <p>1:1 pointer tracking, live release velocity handoff, rubber-banding, and <code>prefers-reduced-motion</code> fallbacks.</p>
+        </div>
+        <div class="card">
+          <h3>React View Transitions</h3>
+          <p>Shared-element morphs, directional navigation via <code>addTransitionType</code>, and Suspense reveals.</p>
+        </div>
+      </div>
+
+      <h2>Frequently Asked Questions</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Which agents are supported?</h3>
+          <p>Works with any <code>SKILL.md</code>-compatible agent: Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI.</p>
+        </div>
+        <div class="card">
+          <h3>Does it override existing design systems?</h3>
+          <p>No. It preserves your existing tokens, type scale, and palette unless you are building greenfield or explicitly redesigning.</p>
+        </div>
+      </div>
+
+      <footer>
+        Open-source on <a href="https://github.com/jaxels1/tactile-ui">github.com/jaxels1/tactile-ui</a>.
+      </footer>
+    </main>
+  </body>
+</html>
