@@ -2,18 +2,29 @@
   <img src="./assets/logo.svg" alt="tactile-ui logo" width="64" height="64" />
 </p>
 
-# Tactile UI
+# Tactile UI — UI Design, Fluid Motion & Anti-Slop Agent Skill
 
-Combines multiple UI, motion, and anti-slop skills plus 130+ design-engineering articles into one unified agent skill.
+**Tactile UI (`tactile-ui`)** is an open-source UI/UX design and frontend engineering skill for AI coding agents (Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI). It replaces generic "AI slop" templates with crafted typography, `OKLCH` color systems, defensive CSS layout rules, Apple-style interruptible spring physics, and React `<ViewTransition>` animations—synthesizing `@charles.unemployed`'s UI/UX rules, Apple's *Designing Fluid Interfaces*, Vercel's `react-view-transitions`, and 130+ frontend engineering articles.
 
-![tactile-ui beat-drop & draggable spring sheet demo](./assets/demo.gif)
+![tactile-ui skill demo](./assets/demo.gif)
 
 ## Quick Install
 
+Install via the open agent skills CLI (`skills.sh`):
+
 ```bash
-git clone https://github.com/jaxels1/tactile-ui.git ~/.gemini/config/skills/tactile-ui
+npx skills add jaxels1/tactile-ui
 ```
-*(Or clone into `.agents/skills/tactile-ui` inside any project.)*
+
+Or clone directly into your agent's skills directory:
+
+```bash
+# Global (Antigravity / Gemini)
+git clone https://github.com/jaxels1/tactile-ui.git ~/.gemini/config/skills/tactile-ui
+
+# Project-local (Claude Code / Codex / Cursor / universal .agents)
+git clone https://github.com/jaxels1/tactile-ui.git .agents/skills/tactile-ui
+```
 
 ## What's Inside
 
@@ -39,9 +50,20 @@ tactile-ui/
     └── color-forms-and-product.md
 ```
 
-## Installation
+## Manual Installation
 
-Copy this folder into your agent's skills directory (e.g. `.agents/skills/jaxels-animate` in a project, or `~/.gemini/config/skills/jaxels-animate` globally).
+Copy this folder into your agent's skills directory (e.g. `.agents/skills/tactile-ui` in a project, or `~/.gemini/config/skills/tactile-ui` globally).
+
+## FAQ
+
+### What makes `tactile-ui` a good UI design skill for AI coding agents?
+`tactile-ui` gives coding agents concrete, verifiable rules instead of vague aesthetic adjectives—covering anti-slop layout audits, `OKLCH` perceptual contrast, defensive CSS (`minmax(0, 1fr)`, `subgrid`, `overflow: clip`), interruptible pointer-driven springs, and native React `<ViewTransition>` choreography.
+
+### Which AI coding agents and frameworks does `tactile-ui` support?
+`tactile-ui` follows the open `SKILL.md` standard and works with Claude Code, OpenAI Codex, Cursor, Antigravity, and Gemini CLI across React, Next.js, TypeScript, Tailwind CSS, and vanilla CSS/DOM projects.
+
+### Does `tactile-ui` work on existing apps or only greenfield sites?
+It preserves existing design systems by default—keeping your product's tokens, type scale, and palette intact—while only applying greenfield anti-slop typography and palette rules when starting from scratch or explicitly redesigning.
 
 ## Credits & Sources
 
