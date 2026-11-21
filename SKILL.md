@@ -1,5 +1,5 @@
 ---
-name: jaxels-animate
+name: tactile-ui
 description: >-
   Comprehensive UI animation, fluid motion, and anti-slop interface craft mega
   skill combining @charles.unemployed's design/UX rules, Apple's Designing Fluid
@@ -8,7 +8,7 @@ description: >-
   transitions, forms, design systems, or product screenshots.
 ---
 
-# Jaxel's Animate
+# Tactile UI
 
 A unified mega skill for **crafted UI, physical motion, and zero-slop frontend
 engineering**—combining:

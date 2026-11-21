@@ -1,19 +1,19 @@
 <p align="left">
-  <img src="./assets/logo.svg" alt="jaxels-animate logo" width="64" height="64" />
+  <img src="./assets/logo.svg" alt="tactile-ui logo" width="64" height="64" />
 </p>
 
-# Jaxel's Animate
+# Tactile UI
 
 Combines multiple UI, motion, and anti-slop skills plus 130+ design-engineering articles into one unified agent skill.
 
-![jaxels-animate beat-drop & draggable spring sheet demo](./assets/demo.gif)
+![tactile-ui beat-drop & draggable spring sheet demo](./assets/demo.gif)
 
 ## Quick Install
 
 ```bash
-git clone https://github.com/jaxels1/jaxels-animate.git ~/.gemini/config/skills/jaxels-animate
+git clone https://github.com/jaxels1/tactile-ui.git ~/.gemini/config/skills/tactile-ui
 ```
-*(Or clone into `.agents/skills/jaxels-animate` inside any project.)*
+*(Or clone into `.agents/skills/tactile-ui` inside any project.)*
 
 ## What's Inside
 
@@ -27,7 +27,7 @@ git clone https://github.com/jaxels1/jaxels-animate.git ~/.gemini/config/skills/
 ## Structure
 
 ```text
-jaxels-animate/
+tactile-ui/
 ├── SKILL.md
 ├── README.md
 └── references/
