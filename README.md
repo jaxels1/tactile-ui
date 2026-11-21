@@ -2,6 +2,15 @@
 
 Combines multiple UI, motion, and anti-slop skills plus 130+ design-engineering articles into one unified agent skill.
 
+![jaxels-animate beat-drop & draggable spring sheet demo](./assets/demo.gif)
+
+## Quick Install
+
+```bash
+git clone https://github.com/jaxels1/jaxels-animate.git ~/.gemini/config/skills/jaxels-animate
+```
+*(Or clone into `.agents/skills/jaxels-animate` inside any project.)*
+
 ## What's Inside
 
 - **Anti-Slop Layout, Copy & Chrome** — Breaking 3-column card grids, banning AI palette/chrome clichés, plain-English copy, Two-Pass audit, and the Chanel rule.
