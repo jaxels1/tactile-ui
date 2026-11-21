@@ -44,7 +44,9 @@
 ### 1. Kill Latency & Track 1:1
 - **Respond on `pointerdown`**, not on `click`/release.
 - **Use Pointer Events + `setPointerCapture`** so tracking continues outside
-  element bounds, and preserve the **grab offset** (`e.clientY - rect.top`).
+  element bounds, preserve the **grab offset** (`e.clientY - rect.top`), and
+  always clean up drag state on `pointercancel` and `lostpointercapture` (not
+  just `pointerup`) so interrupted gestures never wedge the next drag.
 - **Record a short position + timestamp history** on `pointermove` so you have
   accurate velocity on release.
 

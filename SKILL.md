@@ -56,7 +56,7 @@ engineering**—combining:
 ## Pre-Ship Verification Checklist
 
 - [ ] **Interruptible mid-flight**: A sheet, drawer, or carousel can be re-grabbed mid-spring from its live on-screen position without snapping or locking input.
-- [ ] **Safe drag cancel**: Canceling a drag (releasing early or dragging back past the threshold) snaps cleanly and leaves the component interactive.
+- [ ] **Safe drag cancel**: Releasing early, reversing past the threshold, or firing `pointercancel` / `lostpointercapture` cleans up drag state, springs back cleanly, and leaves the *next* drag working.
 - [ ] **Velocity handoff works**: Flick springs use physics parameters (`stiffness`, `damping`, `mass`, `velocity`) rather than `duration`/`bounce` (which ignore `velocity` in Motion).
 - [ ] **Reduced motion works in the actual CSS**: `@media (prefers-reduced-motion: reduce)` is wired into the shipped recipes so slides/springs degrade to short opacity cross-fades.
 - [ ] **Compositor-friendly**: High-frequency animations touch only `transform` and `opacity` (never `top`/`left`); entrances start at `scale: 0.97` + `opacity: 0` (never `scale: 0`); `interpolate-size` is reserved for discrete `height: auto` reveals.
