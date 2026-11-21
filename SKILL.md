@@ -25,49 +25,43 @@ engineering**—combining:
 
 | Use Case | Tool / Primitive | Why |
 | :--- | :--- | :--- |
-| **Micro-interactions & state** (buttons, shakes, accordions, icon swaps) | **CSS** (`transform`, `opacity`, `interpolate-size`) | Zero JS overhead, `<300ms`, compositor-only |
+| **Micro-interactions & state** (buttons, shakes, icon swaps, small accordions) | **CSS** (`transform`, `opacity`; `interpolate-size` for discrete `height: auto`) | Zero JS overhead, `<300ms`; keep frequent UI `transform`/`opacity`-only (`interpolate-size` animates layout) |
 | **Gesture-driven UI** (drags, sheets, carousels, flicks) | **Springs + Pointer Events** (`motion` / `requestAnimationFrame`) | Interruptible mid-flight, preserves release velocity |
 | **Route, shared-element & list transitions** (React 19.3+ / Next.js) | **`<ViewTransition>` + `addTransitionType`** | Native browser snapshots, graceful fallback |
 
 ## Core Workflow
 
-1. **Audit your plan before coding (Two-Pass Rule)** — Sketch a compact token
-   plan (4–6 hexes, 1–2 typefaces, ASCII layout). Purge AI tells before writing
-   code: no 3-column rounded-card grids, no purple-to-cyan gradients, no
-   warm-cream + terracotta defaults, no tracked-out `ALL-CAPS` eyebrows, and no
-   buzzword copy. See [Anti-Slop Layout & Copy](./references/anti-slop-layout-and-copy.md).
-2. **Set typography & color temperature first** — Replace overused AI defaults
-   (`Inter`, `Geist`, `Space Grotesk`, `Playfair Display`) and lock a single
-   temperature-contrasting accent (`warm page = cool accent`,
-   `cool page = warm accent`), 3 colors max. See [CSS & Typography](./references/css-and-typography.md)
-   and [Color, Forms & Product](./references/color-forms-and-product.md).
-3. **Build with CSS craft & optical polish** — Nested radii
-   (`inner = outer - padding`), `OKLCH` palettes/gradients (`in oklch`), alpha
-   borders (`rgb(0 0 0 / 0.12)`), `100dvh`, `text-box-trim`, and shift-free
-   `inline-grid` bold tabs.
-4. **Make motion physical & interruptible** — Respond on `pointerdown`, track
+1. **Let the existing design system lead** — When working in an existing
+   product, preserve its tokens, typography, grid, and palette. Only apply the
+   greenfield anti-slop typography, palette, and layout rules when starting from
+   a blank page or explicitly asked to redesign. See
+   [Anti-Slop Layout & Copy](./references/anti-slop-layout-and-copy.md) and
+   [CSS & Typography](./references/css-and-typography.md).
+2. **Make motion physical & interruptible** — Respond on `pointerdown`, track
    1:1 with `setPointerCapture`, animate from the live presentation value, hand
-   off release velocity to springs (`damping: 1.0` default; `0.8` for
-   momentum), and rubber-band boundaries. See
+   off release velocity to a **physics-based** spring (`stiffness`/`damping`/`mass`,
+   targeting damping ratio `1.0` by default or `~0.8` for momentum flicks), and
+   rubber-band boundaries. See
    [Fluid Physics & Gestures](./references/fluid-physics-and-gestures.md).
-5. **Wire structural transitions with `<ViewTransition>`** — Implement in
-   priority order: shared element (`name`) → Suspense reveal → list identity
-   (`key`) → state enter/exit → route change. See
+3. **Wire structural transitions with `<ViewTransition>`** — For every transition,
+   ask: **"What does this motion help the user understand?"** Add shared elements,
+   directional slides, Suspense reveals, or list identity only when they
+   communicate spatial continuity or state change. See
    [React View Transitions](./references/react-view-transitions.md).
-6. **Respect accessibility, UX laws & the Chanel Rule** — Support
+4. **Respect accessibility, UX laws & restraint** — Support
    `prefers-reduced-motion`, `prefers-reduced-transparency`, and
    `prefers-contrast`; enforce Fitts, Hick, Miller, Doherty (`<400ms`), Postel,
-   and Jakob; before shipping, remove one unnecessary border, badge, or effect.
+   and Jakob; remove any motion that doesn't earn its place.
 
 ## Pre-Ship Verification Checklist
 
-- [ ] **No AI-default fonts or template chrome** (`Inter`, `Geist`, `Space Grotesk`, `Playfair Display`, `ALL-CAPS` eyebrows, `→` on every link, `01/02/03` non-sequence numbers).
-- [ ] **No AI palette/layout clichés** (no purple-blue gradients, no 3-column identical card stacks, no buzzwords like *"Elevate"* / *"Seamless"*).
-- [ ] **Nested radii & `OKLCH`**: `innerRadius = outerRadius - padding`; gradients use `in oklch`.
-- [ ] **Compositor-only motion**: Only `transform` and `opacity` animated (never `top`/`left`); entrances start at `scale: 0.97` + `opacity: 0` (never `scale: 0`).
-- [ ] **Interruptible gestures**: Drags/sheets use springs with velocity handoff, not fixed-duration CSS transitions.
+- [ ] **Interruptible mid-flight**: A sheet, drawer, or carousel can be re-grabbed mid-spring from its live on-screen position without snapping or locking input.
+- [ ] **Safe drag cancel**: Canceling a drag (releasing early or dragging back past the threshold) snaps cleanly and leaves the component interactive.
+- [ ] **Velocity handoff works**: Flick springs use physics parameters (`stiffness`, `damping`, `mass`, `velocity`) rather than `duration`/`bounce` (which ignore `velocity` in Motion).
+- [ ] **Reduced motion works in the actual CSS**: `@media (prefers-reduced-motion: reduce)` is wired into the shipped recipes so slides/springs degrade to short opacity cross-fades.
+- [ ] **Compositor-friendly**: High-frequency animations touch only `transform` and `opacity` (never `top`/`left`); entrances start at `scale: 0.97` + `opacity: 0` (never `scale: 0`); `interpolate-size` is reserved for discrete `height: auto` reveals.
 - [ ] **Spatial consistency**: Panels exit the same way they entered; popovers scale from their trigger (`transform-origin`).
-- [ ] **Reduced motion**: `@media (prefers-reduced-motion: reduce)` swaps slides/springs for short opacity cross-fades.
+- [ ] **Existing system respected** *(or greenfield audit passed)*: Existing product tokens/fonts are preserved unless starting from scratch or redesigning.
 
 ## Reference Index
 

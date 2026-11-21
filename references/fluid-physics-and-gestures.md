@@ -23,10 +23,17 @@
    ```
 8. **Tooltips**: Delay only the first tooltip; once one is open, show
    subsequent tooltips immediately.
-9. **Flicks & drags**: Hand off release velocity to a spring instead of a fixed
-   duration:
+9. **Flicks & drags**: Hand off release velocity to a **physics-based** spring
+   (in Motion, `duration`/`bounce` springs ignore initial `velocity`, so use
+   `stiffness` / `damping` / `mass`):
    ```ts
-   animate(y, 0, { type: "spring", duration: 0.5, bounce: 0, velocity });
+   animate(y, 0, {
+     type: "spring",
+     stiffness: 380,
+     damping: 38,
+     mass: 1,
+     velocity,
+   });
    ```
 10. **Carousels**: Add growing pull resistance past either end, then spring back.
 
@@ -48,11 +55,13 @@
   re-target smoothly from current position and velocity without a "brick wall".
 - **Decompose 2D motion** into independent X and Y springs.
 
-### 3. Springs: Damping & Response
-- **Default UI spring**: Critically damped (`damping: 1.0`, `bounce: 0`,
-  `response/duration: 0.3–0.4s`).
-- **Momentum / flick spring**: Slight overshoot (`damping: 0.8`, `bounce: 0.2`,
-  `response/duration: 0.3–0.4s`)—only when a physical flick preceded it.
+### 3. Springs: Damping Ratio vs. Physics Parameters
+- **Apple's `1.0` and `0.8` are *damping ratios*** ($\zeta$), not raw Motion `damping` coefficients:
+  - **Damping ratio `1.0`** = critically damped (no overshoot; default for most UI).
+  - **Damping ratio `~0.8`** = slightly under-damped (subtle bounce; use **only** when a physical flick or drag release carried momentum).
+- **In Motion (`motion.dev`)**:
+  - Use `visualDuration` + `bounce` (`0` for critically damped, `0.2` for slight bounce) when no initial gesture `velocity` is needed.
+  - Use physics parameters (`stiffness`, `damping`, `mass`, `velocity`) whenever handing off gesture release `velocity`—Motion ignores `velocity` on duration-based springs. (For `stiffness: 380, mass: 1`, critical `damping` is $2\sqrt{380} \approx 39$.)
 
 ### 4. Velocity Handoff & Momentum Projection
 Pass release velocity into the spring (`relativeVelocity = gestureVelocity / (target - current)` if normalized, or raw `px/s` for Motion). Project where a flick is going before snapping:

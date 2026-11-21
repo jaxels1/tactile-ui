@@ -4,17 +4,21 @@ Animate between UI states using `document.startViewTransition` via React's
 `<ViewTransition>` component (React 19.3+ or Next.js App Router). Unsupported
 browsers skip animations gracefully.
 
-## Priority Order
+## When to Animate
 
-Implement **all** applicable patterns in this order:
+Every `<ViewTransition>` must answer one question: **"What does this motion help
+the user understand?"** If you can't articulate what spatial relationship,
+continuity, or state change it communicates, don't add it.
 
-| Priority | Pattern | What it communicates |
-| :---: | :--- | :--- |
-| 1 | **Shared element** (`name`) | "Same thing — going deeper" |
-| 2 | **Suspense reveal** | "Data loaded" |
-| 3 | **List identity** (per-item `key`) | "Same items, new arrangement" |
-| 4 | **State change** (`enter` / `exit`) | "Something appeared/disappeared" |
-| 5 | **Route change** (page-level) | "Going to a new place" |
+Common patterns and what they communicate:
+
+| Pattern | What it communicates |
+| :--- | :--- |
+| **Shared element** (`name`) | "Same thing — going deeper" |
+| **Suspense reveal** | "Data loaded" |
+| **List identity** (per-item `key`) | "Same items, new arrangement" |
+| **State change** (`enter` / `exit`) | "Something appeared/disappeared" |
+| **Route change** (page-level) | "Going to a new place" |
 
 ## Core Rules
 
@@ -116,5 +120,16 @@ startTransition(() => {
   animation:
     var(--duration-exit) ease-in both fade reverse,
     var(--duration-move) ease-in-out both slide reverse;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(.slide-from-right),
+  ::view-transition-new(.slide-from-left) {
+    animation: var(--duration-enter) ease-out both fade;
+  }
+  ::view-transition-old(.slide-to-left),
+  ::view-transition-old(.slide-to-right) {
+    animation: var(--duration-exit) ease-in fade reverse;
+  }
 }
 ```
