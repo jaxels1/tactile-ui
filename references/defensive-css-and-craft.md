@@ -1,8 +1,5 @@
 # Defensive CSS & Engineering Craft Reference
 
-Distilled from **132 design, CSS, animation, and UX articles** (Josh W. Comeau,
-Ahmad Shadeed, ModernCSS, Piccalilli, NN/g, web.dev, Laws of UX, Nerdy.dev).
-
 ---
 
 ## 1. Layout & Grid Traps (Defensive CSS)
@@ -44,10 +41,11 @@ Ahmad Shadeed, ModernCSS, Piccalilli, NN/g, web.dev, Laws of UX, Nerdy.dev).
   `@media (width > 300px)` to avoid exact-pixel boundary collisions.
 - **Logical properties for RTL/LTR**: Use `margin-inline`, `padding-block`,
   and `start`/`end` naming; add `dir="auto"` on user-generated text.
-- **CSS Anchor Positioning**: Tether badges/tooltips with `position-anchor` and
-  `anchor(top)` instead of fragile pixel offsets.
-- **Dynamic `calc-size()` & `round()`**: Snap container heights to repeating
-  pattern tile heights without clipping.
+- **CSS Anchor Positioning (with fallback)**: Wrap `position-anchor` /
+  `anchor(top)` inside `@supports (anchor-name: --x)` and provide a standard
+  `position: absolute` fallback for non-Chromium browsers.
+- **Dynamic `calc-size()` & `round()`**: Guard `calc-size()` with
+  `@supports (height: calc-size(auto, size))` and provide a fixed or Grid fallback.
 
 ---
 
@@ -66,8 +64,8 @@ Ahmad Shadeed, ModernCSS, Piccalilli, NN/g, web.dev, Laws of UX, Nerdy.dev).
   avatars stay legible.
 - **Avoid pure `#000` / `#fff` in dark mode**: Use muted dark surfaces (e.g.
   `#121212` or darkened brand tones) to reduce halation and eye strain.
-- **Relative color syntax**: Derive hover/border states dynamically with
-  `rgb(from var(--brand) r g b / 0.5)` or `OKLCH`.
+- **Relative color syntax (with fallback)**: Provide a static hex/rgba fallback
+  before `rgb(from var(--brand) r g b / 0.5)` or `oklch(...)` (or wrap in `@supports`).
 
 ---
 
@@ -75,8 +73,8 @@ Ahmad Shadeed, ModernCSS, Piccalilli, NN/g, web.dev, Laws of UX, Nerdy.dev).
 
 - **Stop scroll chaining**: Set `overscroll-behavior: contain` on modals,
   drawers, and dropdowns.
-- **Auto-sizing inputs**: Use `field-sizing: content; max-width: 100%;` on
-  `<select>` and `<input>` elements.
+- **Auto-sizing inputs (with fallback)**: Pair `width: 100%; min-width: 6ch;`
+  with `field-sizing: content; max-width: 100%;` (or guard in `@supports (field-sizing: content)`) for Safari/Firefox support.
 - **Hit targets on the interactive node**: Put padding on `<a>` / `<button>`
   (not `<li>`), and enforce `min-width` so short localized labels ("OK") don't
   collapse below 44px touch targets.

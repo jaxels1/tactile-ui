@@ -1,8 +1,23 @@
 # React View Transitions Reference
 
+## Environment Prerequisite (`package.json` Check)
+
+Inspect `package.json` before importing `<ViewTransition>` or `addTransitionType`:
+- **Supported**: `react >= 19.3` (or React canary / Next.js with `experimental.viewTransition`).
+- **Fallback for React 18 / 19.0–19.2**: Do NOT import missing exports from `react`. Feature-detect `document.startViewTransition` (and respect `prefers-reduced-motion`):
+  ```js
+  function runViewTransition(update) {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || typeof document.startViewTransition !== "function") {
+      update();
+      return;
+    }
+    document.startViewTransition(update);
+  }
+  ```
+
 Animate between UI states using `document.startViewTransition` via React's
-`<ViewTransition>` component (React 19.3+ or Next.js App Router). Unsupported
-browsers skip animations gracefully.
+`<ViewTransition>` component when supported. Unsupported browsers skip animations gracefully.
 
 ## When to Animate
 

@@ -28,12 +28,33 @@ git clone https://github.com/jaxels1/tactile-ui.git .agents/skills/tactile-ui
 
 ## What's Inside
 
+- **Step 0 Surface Triage & Environment Gate** — Separates high-frequency utilitarian tools (`<=120ms` or zero motion) from expressive consumer surfaces, inspects `package.json` React/Motion versions before recommending APIs, and wraps modern CSS in `@supports` / sRGB fallbacks.
+- **Deterministic Pre-Ship Scanner (`scripts/audit-ui.mjs`)** — Zero-dependency Node script checking `.css`, `.scss`, `.jsx`, `.tsx`, `.ts`, `.js`, and `.html` files for layout-animating properties, missing `prefers-reduced-motion` rules, ignored Motion `velocity` (`duration`/`bounce`), `scale(0)` entrances, and unguarded bleeding-edge CSS.
 - **Anti-Slop Layout, Copy & Chrome** — Breaking 3-column card grids, banning AI palette/chrome clichés, plain-English copy, Two-Pass audit, and the Chanel rule.
-- **CSS & Typography Craft** — Nested radii, `OKLCH` palettes & gradients, `inline-grid` shift-free tabs, `text-box-trim`, `text-wrap: balance/pretty`, `1lh`/`1cap` alignment, and non-AI typeface lists.
+- **CSS & Typography Craft** — Nested radii, `OKLCH` palettes & gradients with sRGB fallbacks, `inline-grid` shift-free tabs, guarded `text-box-trim`, `text-wrap: balance/pretty`, `1lh`/`1cap` alignment, and non-AI typeface lists.
 - **Defensive CSS** — `minmax(0, 1fr)`, `subgrid`, `overflow: clip`, `overscroll-behavior: contain`, container & `:has()` quantity queries, `@layer`, and `PropFLIP`.
 - **Fluid Physical Motion** — 1:1 pointer tracking, interruptible springs, velocity handoff, exponential momentum projection, rubber-banding, translucent materials, and reduced-motion accessibility.
-- **React `<ViewTransition>`** — Shared-element morphs, directional navigation (`addTransitionType`), Suspense reveals, list identity, and CSS recipes.
+- **React `<ViewTransition>`** — Shared-element morphs, directional navigation (`addTransitionType`), Suspense reveals, React 18/19.0–19.2 fallbacks, and CSS recipes.
 - **Color, Form UX & Product Presentation** — Color-wheel temperature contrast, password/form UX patterns, and App Store screenshot psychology.
+
+## Pre-Ship Automated Audit (`scripts/audit-ui.mjs`)
+
+Instead of relying solely on checklist self-review, run the zero-dependency static auditor before finishing UI edits:
+
+```bash
+# Audit modified & untracked UI files in the current git workspace
+node scripts/audit-ui.mjs --changed
+
+# Audit specific files or directories (add --strict to fail on @supports warnings too)
+node scripts/audit-ui.mjs src/components src/styles/app.css --json
+```
+
+Rules enforced:
+- **`layout-animation`**: Flags `@keyframes`, `transition`, and Motion props animating layout properties (`top`, `left`, `width`, `height`, `margin`, `padding`) instead of `transform` and `opacity`.
+- **`missing-reduced-motion`**: Verifies CSS files and React motion components define `@media (prefers-reduced-motion: reduce)`, `useReducedMotion`, or `<MotionConfig reducedMotion="user">`.
+- **`motion-velocity-ignored`**: Catches Motion spring objects combining `velocity` with `duration`, `visualDuration`, or `bounce` (which silently ignores initial `velocity`).
+- **`scale-zero-entrance`**: Flags `scale(0)`, `scale: 0`, and Tailwind `scale-0` entrance states instead of `scale(0.97)`.
+- **`unguarded-bleeding-edge-css`**: Warns when `text-box-trim`, `interpolate-size`, or `oklch` lack `@supports` wrappers or prior sRGB fallback declarations.
 
 ## Structure
 
@@ -41,6 +62,8 @@ git clone https://github.com/jaxels1/tactile-ui.git .agents/skills/tactile-ui
 tactile-ui/
 ├── SKILL.md
 ├── README.md
+├── scripts/
+│   └── audit-ui.mjs
 └── references/
     ├── anti-slop-layout-and-copy.md
     ├── defensive-css-and-craft.md

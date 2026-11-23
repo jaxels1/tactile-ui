@@ -1,15 +1,25 @@
 # CSS & Typography Reference
 
-## 10 UI & CSS Design Rules (`@charles.unemployed`)
+## 10 UI & CSS Design Rules
 
 1. **Nested rounded corners**: `innerRadius = outerRadius - padding`.
 2. **Alpha borders**: Use `rgb(0 0 0 / 0.12)` (or `rgb(255 255 255 / 0.12)` on
    dark surfaces) instead of solid hex so borders blend into any background.
-3. **OKLCH palettes**: Build color scales in `OKLCH` instead of `HSL` so equal
-   lightness steps look perceptually equal.
-4. **OKLCH gradients**: Interpolate in `oklch` to avoid muddy grey midpoints:
+3. **OKLCH palettes with sRGB fallback**: Define an sRGB hex fallback first (or
+   wrap in `@supports (color: oklch(0 0 0))`) so color steps render in all engines:
    ```css
-   background: linear-gradient(90deg in oklch, blue, orange);
+   .accent-surface {
+     background: #2563eb;
+     background: oklch(0.55 0.22 260);
+   }
+   ```
+4. **OKLCH gradients with fallback**: Pair a standard gradient before `in oklch`
+   interpolation to prevent broken gradients on older browsers:
+   ```css
+   .banner {
+     background: linear-gradient(90deg, #2563eb, #f97316);
+     background: linear-gradient(90deg in oklch, blue, orange);
+   }
    ```
 5. **Icon stroke matching**: Match icon stroke width to adjacent text weight.
 6. **Carousel edge fades**:
@@ -20,14 +30,13 @@
    (`filter: blur(4px)`).
 8. **Dark mode depth**: Express elevation with lighter surfaces rather than
    heavy shadows.
-9. **Full-height sections**: Use `100dvh` instead of `100vh` (avoids mobile
-   Safari viewport bugs).
+9. **Full-height sections**: Pair `100vh` fallback with `100dvh` (`min-height: 100vh; min-height: 100dvh;`) to avoid mobile Safari viewport bugs.
 10. **Product shots on white**: Use `mix-blend-mode: multiply` to knock out
     white backgrounds cleanly.
 
 ---
 
-## 10 CSS Typography Rules (`@charles.unemployed`)
+## 10 CSS Typography Rules
 
 1. **Bold tabs without layout shift**:
    ```css
@@ -40,10 +49,17 @@
      pointer-events: none;
    }
    ```
-2. **Optical centering**:
+2. **Optical centering (guarded)**:
    ```css
-   text-box-trim: trim-both;
-   text-box-edge: cap alphabetic;
+   .pill-label {
+     padding-block: 0.45em;
+   }
+   @supports (text-box-trim: trim-both) {
+     .pill-label {
+       text-box-trim: trim-both;
+       text-box-edge: cap alphabetic;
+     }
+   }
    ```
 3. **Clean underlines**: `text-underline-offset: 0.2em;` to clear descenders.
 4. **Evenly spaced superscripts**:
@@ -75,7 +91,7 @@
 
 ---
 
-## Optical Sizing, Tracking & Leading (Apple WWDC)
+## Optical Sizing, Tracking & Leading
 
 - **Tracking is size-specific**: Tighten large display text (`-0.02em`), leave
   body near `0`, and slightly open small captions.

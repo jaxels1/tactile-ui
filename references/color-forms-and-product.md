@@ -1,6 +1,6 @@
 # Color, Form UX & Product Presentation Reference
 
-## Color Wheel & Accent System (`@charles.unemployed`)
+## Color Wheel & Accent System
 
 1. **Temperature contrast**:
    - **Warm page = cool accent**

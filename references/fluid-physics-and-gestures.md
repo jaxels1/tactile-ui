@@ -1,20 +1,48 @@
 # Fluid Physics, Gestures & UX Laws
 
-## Part 1: 10 UI Animation Rules (`@charles.unemployed`)
+## Part 1: 10 UI Animation Rules
 
 1. **Entrances**: Start from `scale: 0.97` + `opacity: 0`, never `scale: 0`.
 2. **Tactile buttons**:
    ```css
-   button { transition: scale 150ms ease-out; }
-   button:active { scale: 0.97; }
+   button { transition: transform 150ms ease-out; }
+   button:active { transform: scale(0.97); }
+   @media (prefers-reduced-motion: reduce) {
+     button { transition: none; }
+   }
    ```
 3. **Wrong password / error shake**: Shake horizontally
    (`translateX`: `0, -10px, 10px, -6px, 6px, -3px, 0`) over `360ms` and turn
    the field red.
 4. **Steppers**: Slide the next step in from the navigation direction instead of
    crossfading.
-5. **Accordions**: `:root { interpolate-size: allow-keywords; }` so
-   `height: auto` animates smoothly.
+5. **Accordions (cross-browser Grid fallback + `@supports`)**: Default to
+   `grid-template-rows: 0fr` → `1fr` on an inner `overflow: hidden` wrapper, and
+   upgrade to `interpolate-size: allow-keywords` inside `@supports`:
+   ```css
+   .accordion-panel {
+     display: grid;
+     grid-template-rows: 0fr;
+     transition: grid-template-rows 220ms ease;
+   }
+   .accordion-panel.is-open { grid-template-rows: 1fr; }
+   .accordion-inner { overflow: hidden; }
+
+   @supports (interpolate-size: allow-keywords) {
+     .accordion-panel.is-native {
+       display: block;
+       interpolate-size: allow-keywords;
+       height: 0;
+       overflow: clip;
+       transition: height 220ms ease; /* tactile-ui-ignore: layout-animation */
+     }
+     .accordion-panel.is-native.is-open { height: auto; }
+   }
+
+   @media (prefers-reduced-motion: reduce) {
+     .accordion-panel { transition: none; }
+   }
+   ```
 6. **GPU positioning**: Animate `transform`, never `top`/`left`, to avoid
    per-frame repaints.
 7. **Theme switches**: Disable transitions mid-switch:
@@ -39,7 +67,7 @@
 
 ---
 
-## Part 2: Fluid Physical Motion (Apple *Designing Fluid Interfaces*)
+## Part 2: Fluid Physical Motion
 
 ### 1. Kill Latency & Track 1:1
 - **Respond on `pointerdown`**, not on `click`/release.
@@ -110,7 +138,7 @@ function rubberband(overshoot, dimension, constant = 0.55) {
 
 ---
 
-## Part 3: 20 Animation & UX Laws (`@charles.unemployed`)
+## Part 3: 20 Animation & UX Laws
 
 ### Disney's 12 Principles Applied to UI
 1. **Squash & stretch** — Subtle volume-preserving flex on press/impact.
